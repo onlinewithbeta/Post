@@ -1,0 +1,58 @@
+import express from 'express'
+import dotenv from 'dotenv'
+
+dotenv.config();
+
+const app = new express();
+app.use(express.json());
+
+const PORT = process.env.PORT || 2023;
+
+let chat = [{
+  text: 'nothing'
+}];
+
+app.get("/", (req, res)=> {
+  res.send(chat)
+  console.log('All Chat read');
+})
+app.get("/:index", (req, res)=> {
+  let index = Number(req.params.index);
+
+  if (!chat[index]) return res.send(404)
+
+  res.send(chat[index])
+  console.log('A Chat read');
+
+})
+
+
+app.post("/", async (req, res)=> {
+  chat.push(req.body);
+  console.log(req.body)
+  console.log('Chat added');
+  res.send(chat)
+})
+
+
+app.delete("/", (req, res)=> {
+  chat =[];
+  res.send(chat)
+  console.log('All Chats deleted');
+})
+app.delete("/:index", (req, res)=> {
+  let index = Number(req.params.index);
+
+  if (!chat[index]) return res.send(404)
+chat[index] = 'deleted';
+
+  res.send(chat[index])
+  console.log(' A Chat deleted');
+
+})
+
+
+
+app.listen(PORT, async ()=> {
+  console.log(`http://localhost:${PORT}`);
+})
