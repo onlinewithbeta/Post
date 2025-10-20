@@ -5,10 +5,12 @@
   "license": "ISC",
   "author": "Osiaru",
   "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "test": "node index"
+  "main": "index.js",  "scripts": {
+    "test": "node index",
+    "dev": "node index",
+    "start": "node index"
   },
+
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0"
